@@ -1,0 +1,105 @@
+{
+  "name": "vscode-palstory",
+  "displayName": "PalStory Tools",
+  "description": "VS Code helper for PalStory game development: run migrations, open game, manage LAMP.",
+  "version": "0.0.1",
+  "publisher": "johlits",
+  "engines": {
+    "vscode": ">=1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "icon": "",
+  "activationEvents": [
+    "onStartupFinished",
+    "onCommand:palstory.runMigration",
+    "onCommand:palstory.openGame",
+    "onCommand:palstory.dockerComposeUp",
+    "onCommand:palstory.dockerComposeDown",
+    "onCommand:palstory.quickActions"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "palstory.runMigration",
+        "title": "PalStory: Run Migration",
+        "category": "PalStory"
+      },
+      {
+        "command": "palstory.openGame",
+        "title": "PalStory: Open Game",
+        "category": "PalStory"
+      },
+      
+      {
+        "command": "palstory.dockerComposeUp",
+        "title": "PalStory: Docker Compose Up (LAMP)",
+        "category": "PalStory"
+      },
+      {
+        "command": "palstory.dockerComposeDown",
+        "title": "PalStory: Docker Compose Down (LAMP)",
+        "category": "PalStory"
+      },
+      {
+        "command": "palstory.quickActions",
+        "title": "PalStory: Quick Actions",
+        "category": "PalStory"
+      }
+    ],
+    "configuration": {
+      "title": "PalStory",
+      "properties": {
+        "palstory.baseUrl": {
+          "type": "string",
+          "default": "http://localhost",
+          "description": "Base URL for PalStory services (e.g. http://localhost)",
+          "scope": "window"
+        },
+        "palstory.migrationPath": {
+          "type": "string",
+          "default": "/migration_runner.php",
+          "description": "Relative path to the migration runner script.",
+          "scope": "window"
+        },
+        "palstory.migrationToken": {
+          "type": "string",
+          "default": "change_me_secure_token",
+          "description": "Auth token appended as ?token=... when running migrations.",
+          "scope": "window"
+        },
+        "palstory.gamePath": {
+          "type": "string",
+          "default": "/story/",
+          "description": "Relative path to the PalStory game.",
+          "scope": "window"
+        },
+        "palstory.lampPath": {
+          "type": "string",
+          "default": "",
+          "description": "Absolute path to the PalStory LAMP docker-compose directory.",
+          "scope": "window"
+        },
+        "palstory.showStatusBarMigration": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show a status bar button to run migrations quickly.",
+          "scope": "window"
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "command": "palstory.quickActions",
+        "key": "ctrl+alt+p"
+      }
+    ]
+  },
+  "scripts": {
+    "package": "vsce package",
+    "lint": "echo 'No lint configured'"
+  },
+  "devDependencies": {}
+}
