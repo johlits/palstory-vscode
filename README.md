@@ -5,12 +5,14 @@ Helper tools for PalStory development: run migrations, open the game, and contro
 ## Features
 - Run migration endpoint and show response JSON/text
 - Open game in default browser
+- Open phpMyAdmin in default browser
 - Docker Compose Up/Down (LAMP)
 - Quick Actions menu and status bar shortcut
 
 ## Commands
 - PalStory: Run Migration (`palstory.runMigration`)
 - PalStory: Open Game (`palstory.openGame`)
+- PalStory: Open phpMyAdmin (`palstory.openPhpMyAdmin`)
 - PalStory: Docker Compose Up (LAMP) (`palstory.dockerComposeUp`)
 - PalStory: Docker Compose Down (LAMP) (`palstory.dockerComposeDown`)
 - PalStory: Quick Actions (`palstory.quickActions`, default: Ctrl+Alt+P)
@@ -21,6 +23,8 @@ Helper tools for PalStory development: run migrations, open the game, and contro
 - `palstory.migrationToken` (string, default: `change_me_secure_token`)
 - `palstory.gamePath` (string, default: `/story/`)
 - `palstory.lampPath` (string, default: empty) ← Set this to your Docker Compose folder for LAMP.
+- `palstory.webPort` (number, default: `80`) — Web server port (maps to `webserver` service)
+- `palstory.phpMyAdminPort` (number, default: `8080`) — phpMyAdmin port (maps to `phpmyadmin` service)
 - `palstory.showStatusBarMigration` (boolean, default: `true`)
 
 Note: If `palstory.lampPath` is empty, Docker commands will prompt you to configure it.

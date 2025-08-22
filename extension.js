@@ -22,6 +22,7 @@ function activate(context) {
     const items = [
       { label: '$(play) Docker Compose Up (LAMP)', action: dockerComposeUp },
       { label: '$(link-external) Open Game', action: openGame },
+      { label: '$(database) Open phpMyAdmin', action: openPhpMyAdmin },
       { label: '$(rocket) Run Migration', action: runMigration },
       { label: '$(stop-circle) Docker Compose Down (LAMP)', action: dockerComposeDown },
       { label: '$(zap) Full Cycle: Up → Open Game → Migrate', action: async () => {
@@ -103,8 +104,21 @@ function activate(context) {
     const cfg = getCfg();
     const baseUrl = cfg.get('baseUrl');
     const gamePath = cfg.get('gamePath');
-    const url = getUrl(baseUrl, gamePath);
-    vscode.env.openExternal(vscode.Uri.parse(url));
+    const webPort = cfg.get('webPort');
+    // Use URL to attach port reliably
+    const urlObj = new URL(getUrl(baseUrl, gamePath), baseUrl);
+    if (webPort) { urlObj.port = String(webPort); }
+    vscode.env.openExternal(vscode.Uri.parse(urlObj.toString()));
+  };
+
+  const openPhpMyAdmin = async () => {
+    const cfg = getCfg();
+    const baseUrl = cfg.get('baseUrl');
+    const pmaPort = cfg.get('phpMyAdminPort');
+    // Open base with phpMyAdmin port (no extra path needed)
+    const urlObj = new URL(baseUrl);
+    if (pmaPort) { urlObj.port = String(pmaPort); }
+    vscode.env.openExternal(vscode.Uri.parse(urlObj.toString()));
   };
 
   const dockerComposeUp = async () => {
@@ -151,6 +165,7 @@ function activate(context) {
   context.subscriptions.push(
     vscode.commands.registerCommand('palstory.runMigration', runMigration),
     vscode.commands.registerCommand('palstory.openGame', openGame),
+    vscode.commands.registerCommand('palstory.openPhpMyAdmin', openPhpMyAdmin),
     vscode.commands.registerCommand('palstory.dockerComposeUp', dockerComposeUp),
     vscode.commands.registerCommand('palstory.dockerComposeDown', dockerComposeDown),
     vscode.commands.registerCommand('palstory.quickActions', quickActions),

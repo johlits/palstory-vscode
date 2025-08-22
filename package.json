@@ -2,7 +2,7 @@
   "name": "vscode-palstory",
   "displayName": "PalStory Tools",
   "description": "VS Code helper for PalStory game development: run migrations, open game, manage LAMP.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "johlits",
   "engines": {
     "vscode": ">=1.85.0"
@@ -12,12 +12,7 @@
   ],
   "icon": "",
   "activationEvents": [
-    "onStartupFinished",
-    "onCommand:palstory.runMigration",
-    "onCommand:palstory.openGame",
-    "onCommand:palstory.dockerComposeUp",
-    "onCommand:palstory.dockerComposeDown",
-    "onCommand:palstory.quickActions"
+    "onStartupFinished"
   ],
   "main": "./extension.js",
   "contributes": {
@@ -30,6 +25,11 @@
       {
         "command": "palstory.openGame",
         "title": "PalStory: Open Game",
+        "category": "PalStory"
+      },
+      {
+        "command": "palstory.openPhpMyAdmin",
+        "title": "PalStory: Open phpMyAdmin",
         "category": "PalStory"
       },
       
@@ -80,6 +80,18 @@
           "type": "string",
           "default": "",
           "description": "Absolute path to the PalStory LAMP docker-compose directory.",
+          "scope": "window"
+        },
+        "palstory.webPort": {
+          "type": "number",
+          "default": 80,
+          "description": "Port for the PalStory web server (Docker webserver).",
+          "scope": "window"
+        },
+        "palstory.phpMyAdminPort": {
+          "type": "number",
+          "default": 8080,
+          "description": "Port for phpMyAdmin service (Docker phpmyadmin).",
           "scope": "window"
         },
         "palstory.showStatusBarMigration": {
